@@ -1,0 +1,50 @@
+version: '3'
+services:
+  database:
+    image: quincycheng/conjur-db:20220717
+    container_name: conjur_db
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - 8432:5432
+
+  conjur:
+    image: quincycheng/conjur-server:20220717
+    container_name: conjur_server
+    command: server
+    environment:
+      DATABASE_URL: postgres://postgres@database/postgres
+      CONJUR_DATA_KEY: $CONJUR_DATA_KEY
+      CONJUR_AUTHENTICATORS:
+    depends_on:
+      - database
+    restart: on-failure
+    ports:
+      - 8080:80
+
+  proxy:
+    image: nginx:1.13.6-alpine
+    container_name: nginx_proxy
+    ports:
+      - "8443:443"
+    volumes:
+      - ./conf/:/etc/nginx/conf.d/:ro
+      - ./conf/tls/:/etc/nginx/tls/:ro
+    depends_on:
+      - conjur
+      - conjur-jit-aws
+    restart: on-failure
+
+  conjur-jit-aws:
+    build: src/
+    environment:
+      CONJUR_URL: "http://conjur:80"
+      CONJUR_ACCOUNT: "default"
+      CONJUR_API_KEY: "${CONJUR_ADMIN}"
+      CONJUR_LOGIN: "${CONJUR_LOGIN}"
+    ports:
+      - 4567:4567
+    links:
+      - conjur
+    depends_on:
+      - conjur
