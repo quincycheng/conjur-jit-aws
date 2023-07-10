@@ -197,7 +197,7 @@ done
 source .env
 CONJUR_URL=https://localhost:8443
 
-echo -e "y" | conjur init  -s -u $CONJUR_URL -a default --force
+echo -e "y y" | conjur init  -s -u $CONJUR_URL -a default --force
 conjur login -i admin -p $CONJUR_ADMIN
 
 # Load Conjur Policies
