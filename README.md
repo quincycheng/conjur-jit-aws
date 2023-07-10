@@ -1,8 +1,6 @@
 # Just in time Secrets for AWS by Conjur
 
-[![Demo video on Just in time Secrets for AWS by Conjur]
-(https://img.youtube.com/vi/A-82SpyN184/maxresdefault.jpg)]
-(https://www.youtube.com/watch?v=A-82SpyN184)
+[![Demo video on Just in time Secrets for AWS by Conjur](https://img.youtube.com/vi/A-82SpyN184/maxresdefault.jpg)](https://www.youtube.com/watch?v=A-82SpyN184)
 
 ## Overview
 This is a functional POC demo to showcase the potential of Conjur in extending its capabilities to provide just-in-time secrets. 
