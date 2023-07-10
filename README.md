@@ -1,10 +1,11 @@
 # Just in time Secrets for AWS by Conjur
 
-[![Demo video on Just in time Secrets for AWS by Conjur](https://img.youtube.com/vi/A-82SpyN184/maxresdefault.jpg)](https://www.youtube.com/watch?v=A-82SpyN184)
-
 ## Overview
 This is a functional POC demo to showcase the potential of Conjur in extending its capabilities to provide just-in-time secrets. 
 Please note that the architecture, functionality, and user experience that will be demonstrated in this demo may not reflect the final product of Conjur in the future.
+
+## Demo Video
+[![Demo video on Just in time Secrets for AWS by Conjur](https://img.youtube.com/vi/A-82SpyN184/maxresdefault.jpg)](https://www.youtube.com/watch?v=A-82SpyN184)
 
 ## Demo Steps
 1. Build the env as Conjur admin by executing `bin/00_build_env.sh`
