@@ -1,8 +1,0 @@
-- !user
-  id: user_a
-
-- !policy
-  id: conjur
-
-- !policy
-  id: data
