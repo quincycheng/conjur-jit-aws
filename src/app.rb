@@ -6,12 +6,8 @@ require 'openssl'
 require "logger"
 
 set :bind, '0.0.0.0'
-#logger = Logger.new(STDOUT)
-#logger.debug("I'm a debug log")
 
 post '/conjur-jit-aws' do
-#  logger.debug('Welcome!')
-#  puts "Hello1"
 
   # Fetch the necessary information from environment variables
   conjur_url = ENV['CONJUR_URL']
@@ -19,11 +15,6 @@ post '/conjur-jit-aws' do
   conjur_api_key = ENV['CONJUR_API_KEY']
   conjur_login = ENV['CONJUR_LOGIN']
   
-  # Create an SSL context that accepts self-signed certificates
-  #ssl_context = OpenSSL::SSL::SSLContext.new
-  #ssl_context.verify_mode = OpenSSL::SSL::VERIFY_NONE
-  #http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
   # Fetch the necessary information from CyberArk Conjur
   Conjur.configuration.appliance_url = conjur_url
   Conjur.configuration.account = conjur_account
@@ -47,7 +38,9 @@ post '/conjur-jit-aws' do
   request_body = JSON.parse(content2)
   role_arn = request_body["role_arn"]
   session_name = request_body["session_name"]
-  
+  duration_seconds = request_body["duration_seconds"]
+  policy = request_body["policy"]
+
   # Set up the AWS STS client
   sts_client = Aws::STS::Client.new(
     region: aws_role_region,
@@ -58,7 +51,9 @@ post '/conjur-jit-aws' do
   # Assume the role
   resp = sts_client.assume_role({
     role_arn: role_arn,
-    role_session_name: session_name
+    role_session_name: session_name,
+    policy: policy,
+    duration_seconds: duration_seconds
   })
   
   # Return the temporary credentials as JSON

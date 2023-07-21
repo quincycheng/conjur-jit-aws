@@ -186,7 +186,7 @@ docker-compose build
 docker-compose up --build -d 
 
 # Wait for services to be ready
-sec=5
+sec=12
 while [ $sec -ge 0 ]; do
         echo -ne "Waiting for services to start in $sec seconds\033[0K\r"
         let "sec=sec-1"
